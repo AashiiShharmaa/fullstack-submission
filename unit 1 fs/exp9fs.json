@@ -1,0 +1,50 @@
+{
+ "_id": ObjectId("..."),
+ "sku": "TSHIRT-001",
+ "title": "Organic Cotton T-Shirt",
+ "description": "100% organic cotton tee. Soft, breathable.",
+ "brand": "GreenThreads",
+ "categories": ["clothing", "mens", "t-shirts"],
+ "attributes": [
+ { "name": "material", "value": "organic cotton" },
+ { "name": "fit", "value": "regular" }
+ ],
+ "variants": [
+ {
+ "variantId": "v1",
+ "sku": "TSHIRT-001-RED-S",
+ "price": 1999,
+ "currency": "INR",
+ "color": "red",
+ "size": "S",
+ "stock": 10,
+ "images": ["img1.jpg", "img2.jpg"]
+ },
+ {
+ "variantId": "v2",
+ "sku": "TSHIRT-001-BLK-M",
+ "price": 1999,
+ "currency": "INR",
+ "color": "black",
+ "size": "M"
+ "stock": 0,
+ "images": ["img3.jpg"]
+ }
+ ],
+ "tags": ["eco-friendly", "summer"],
+ "rating": {
+ "avg": 4.3,
+ "count": 25
+ },
+ "reviews": [
+ {
+ "userId": "user123",
+ "rating": 5,
+ "title": "Great fit",
+ "body": "Loved the fabric!",
+ "createdAt": "2025-09-20T12:00:00Z"
+ }
+ ],
+ "createdAt": "2025-09-01T08:00:00Z",
+ "updatedAt": "2025-09-21T09:00:00Z"
+}
