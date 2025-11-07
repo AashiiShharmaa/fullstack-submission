@@ -1,0 +1,80 @@
+.github/workflows/ci-cd.yml
+name: CI/CD Pipeline
+on:
+push:
+branches:
+- main # Trigger when code is
+pushed to main branch
+pull_request:
+branches:
+- main
+jobs:
+build:
+runs-on: ubuntu-latest
+steps:
+- name: Checkout code
+uses: actions/checkout@v4
+- name: Setup Node.js
+uses: actions/setup-node@v4
+with:
+node-version: '18'
+- name: Install dependencies
+run: npm install
+- name: Run tests
+run: npm test
+- name: Build project
+run: npm run build
+deploy:
+needs: build
+runs-on: ubuntu-latest
+if: github.ref == 'refs/heads/main'
+steps:
+- name: Checkout code
+uses: actions/checkout@v4
+- name: Deploy to Production
+run: |
+echo "Deploying to production...
+"
+# Example for Vercel CLI
+npm install -g vercel
+vercel --prod --token=${{
+secrets.VERCEL_TOKEN }}
+name: Docker CI
+on:
+push:
+branches: [ main ]
+jobs:
+docker:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v4
+- name: Login to Docker Hub
+uses: docker/login-action@v3
+with:
+username: ${{
+secrets.DOCKER_HUB_USERNAME
+}}
+password: ${{
+secrets.DOCKER_HUB_TOKEN }}
+- name: Build and push image
+uses: docker/build-pushaction@v6
+with:
+push: true
+tags:
+yourusername/yourapp:latest
+name: Django CI/CD
+on:
+push:
+branches: [ main ]
+jobs:
+test:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v4
+- name: Setup Python
+uses: actions/setup-python@v5
+with:
+python-version: '3.10'
+- run: pip install -r
+requirements.txt
+- run: python manage.py test
