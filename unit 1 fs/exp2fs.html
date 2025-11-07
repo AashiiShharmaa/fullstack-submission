@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <title>Bank UI</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <style>
+ body { font-family: sans-serif; background: #eaeef1; }
+ .bank-container {
+ max-width: 400px;
+ background: #fff;
+ margin: 3rem auto;
+ border-radius: 10px;
+ box-shadow: 0 2px 10px #0002;
+ padding: 2rem;
+ text-align: center;
+ }
+ .balance { font-size: 2rem; margin: 1rem 0; color: #3560f6; }
+ .btns input[type="number"] { width: 100px; margin-right: 1rem; }
+ .deposit, .withdraw {
+ background: #3560f6;
+ color: #fff; border: none; border-radius: 5px; padding: 8px 14px;
+ margin: 0.5rem;
+ cursor: pointer;
+ }
+ .withdraw { background: #f66c4f; }
+ @media (max-width: 520px) {
+ .bank-container { padding: 1rem; }
+ .btns { display: block; }
+ .btns > * { margin: 0.25rem auto; }
+ }
+ </style>
+</head>
+<body>
+ <div class="bank-container">
+ <h2>Your Account</h2>
+ <div class="balance" id="balance">$0.00</div>
+ <div class="btns">
+ <input type="number" id="amount" placeholder="Amount" min="1"/>
+ <button class="deposit" onclick="deposit()">Deposit</button>
+ <button class="withdraw" onclick="withdraw()">Withdraw</button>
+ </div>
+ <div id="message" style="margin-top: 1rem; color: #d64f3a;"></div>
+ </div>
+<script>
+let balance = 0;
+function updateBalance() {
+ document.getElementById('balance').innerText = `$${balance.toFixed(2)}`;
+}
+function showMsg(msg, color) {
+ const msgDiv = document.getElementById('message');
+ msgDiv.style.color = color;
+ msgDiv.innerText = msg;
+ setTimeout(()=>msgDiv.innerText='',2000);
+}
+function deposit() {
+ let amt = Number(document.getElementById('amount').value);
+ if(amt > 0) {
+ balance += amt;
+ updateBalance();
+ showMsg('Deposit Successful', '#36ad6e');
+ } else {
+ showMsg('Enter a valid amount.', '#d64f3a');
+ }
+ document.getElementById('amount').value = '';
+}
+function withdraw() {
+ let amt = Number(document.getElementById('amount').value);
+ if(amt > 0 && amt <= balance) {
+ balance -= amt;
+ updateBalance();
+ showMsg('Withdrawal Successful', '#36ad6e');
+ } else if(amt > balance) {
+ showMsg('Insufficient funds.', '#d64f3a');
+ } else {
+ showMsg('Enter a valid amount.', '#d64f3a');
+ }
+ document.getElementById('amount').value = '';
+}
+updateBalance();
+</script>
+</body>
+</html>
